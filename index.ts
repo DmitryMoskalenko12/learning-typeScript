@@ -1,11 +1,19 @@
+const currRate: string = "1.05";
 
-const isBirthdayData: boolean = true;
-let ageData: number = 40;
-const userNameData: string = 'John';
+const fetchCurr = (response: string): number => {
+	const data: number = JSON.parse(response);
+  console.log(data)
+	return data;
+};
 
-function logBrtMsg(isBirthday: boolean, userName: string, age: number) {
-  if (isBirthday) {
-    console.log(`Congrats ${userName}, age: ${age + 1}`)
-  }
+function transferEurToUsd(available: boolean, amount: number, commission: number): void {
+	if (available) {
+		let res: number = fetchCurr(currRate) * amount * commission;
+		console.log(res);
+		// Или запись в элемент на странице вместо консоли
+	} else {
+		console.log("Сейчас обмен недоступен");
+	}
 }
-logBrtMsg(isBirthdayData, userNameData, ageData);
+
+transferEurToUsd(true, 500, 1.05);
