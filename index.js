@@ -20,15 +20,14 @@ var calculatePayments = function (_a, _b, elRate, wRate) {
         monthPayments[0] = readings * elRate;
     }
     monthPayments[1] = readingsWData * wRate;
-    return monthPayments;
 };
 calculatePayments(electricityUserData, waterUserData, elRate, wRate);
 var sendInvoice = function (_a, _b, _c) {
     var electricity = _a[0], water = _a[1];
-    var readings = _b.readings, units = _b.units, mode = _b.mode;
+    var readings = _b.readings, units = _b.units;
     var readingsWData = _c.readings, unitsW = _c.units;
     var text = "    Hello!\n    This month you used ".concat(readings, " ").concat(units, " of electricity\n    It will cost: ").concat(electricity, "\u20AC\n    \n    This month you used ").concat(readingsWData, " ").concat(unitsW, " of water\n    It will cost: ").concat(water, "\u20AC");
     return text;
 };
-var finalCalculate = calculatePayments(electricityUserData, waterUserData, elRate, wRate);
-sendInvoice(finalCalculate, electricityUserData, waterUserData);
+var invoice = sendInvoice(monthPayments, electricityUserData, waterUserData);
+console.log(invoice);

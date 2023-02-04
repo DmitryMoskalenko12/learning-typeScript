@@ -14,7 +14,7 @@ const wRate: number = 2;
 
 const monthPayments: number[] = [0, 0]; // [electricity, water]
 
-const calculatePayments = ({readings, mode}:{readings: number, mode: string}, {readings: readingsWData}: {readings: number, units: string}, elRate: number, wRate: number): number[] => {
+const calculatePayments = ({readings, mode}:{readings: number, mode: string}, {readings: readingsWData}: {readings: number, units: string}, elRate: number, wRate: number): void => {
 	if (mode === "double" && readings < 50) {
 		monthPayments[0] = readings * elRate * 0.7;
 	} else {
@@ -22,12 +22,11 @@ const calculatePayments = ({readings, mode}:{readings: number, mode: string}, {r
 	}
 
 	monthPayments[1] = readingsWData * wRate;
-  return monthPayments
 };
 
 calculatePayments(electricityUserData, waterUserData, elRate, wRate);
 
-const sendInvoice = ([electricity, water]: number[], {readings, units}:{readings: number, units: string}, {readings: readingsWData, units: unitsW}: {readings: number, units: string}): void => {
+const sendInvoice = ([electricity, water]: number[], {readings, units}:{readings: number, units: string}, {readings: readingsWData, units: unitsW}: {readings: number, units: string}): string => {
 	const text = `    Hello!
     This month you used ${readings} ${units} of electricity
     It will cost: ${electricity}€
@@ -35,8 +34,8 @@ const sendInvoice = ([electricity, water]: number[], {readings, units}:{readings
     This month you used ${readingsWData} ${unitsW} of water
     It will cost: ${water}€`;
 
-	console.log(text);
+	return text;
 };
-const finalCalculate = calculatePayments(electricityUserData, waterUserData, elRate, wRate);
 
-sendInvoice(finalCalculate, electricityUserData, waterUserData)
+const invoice = sendInvoice(monthPayments, electricityUserData, waterUserData);
+console.log(invoice);
