@@ -88,3 +88,139 @@ type First = {exam: string | number; exam2: string | number}
 type Second = {name: string | number}
 
 type FirstAndSecond = First & Second;
+
+/* interface */
+interface IConfig {
+  protocol: 'http' | 'https';
+  port: 3000 | 3001;
+}
+
+interface IRole {
+  role: string;
+}
+
+interface IConfigWithRole extends IConfig, IRole {}
+
+const serverIConfig: IConfigWithRole = {
+  protocol: 'https',
+  port: 3001,
+  role: 'admin',
+}
+
+const startIServer = (
+  protocol: 'http' | 'https',
+  port : 3000 | 3001
+): 'Server started' => {
+  console.log(`Server started on ${protocol}:// server:${port}`);
+  return 'Server started'
+}
+/* type */
+/* type Config = {
+  protocol: 'http' | 'https';
+  port: 3000 | 3001
+}
+
+type Role = {
+  role: string;
+}
+
+type ConfigWithRole = Config & Role;
+
+const serverConfig: ConfigWithRole = {
+  protocol: 'https',
+  port: 3001,
+  role: 'admin'
+}
+
+const startIServer = (
+  protocol: 'http' | 'https',
+  port : 3000 | 3001
+): 'Server started' => {
+  console.log(`Server started on ${protocol}:// server:${port}`);
+  return 'Server started'
+} */
+
+/* Home Worke */
+
+// структура данных склада с одеждой
+type Valid = "empty" | number;
+interface ClothesWarehouse {
+	jackets: Valid;
+	hats: Valid;
+	socks: Valid;
+	pants: Valid;
+}
+
+// структура данных склада с канцтоварами
+
+interface StationeryWarehouse {
+	scissors: Valid;
+	paper: "empty" | boolean;
+}
+
+// структура данных склада с бытовой техникой
+
+interface AppliancesWarehouse {
+	dishwashers: Valid;
+	cookers: Valid;
+	mixers: Valid;
+}
+/* interface IIndex {
+  [key: string]: any
+} */
+// общая структура данных, наследует все данные из трех выше
+// + добавляет свои
+
+interface TotalWarehouse {
+	deficit: boolean;
+	date: Date;
+}
+interface TotalWarehouse extends ClothesWarehouse, StationeryWarehouse, AppliancesWarehouse/* , IIndex */ {}
+// главный объект со всеми данными, должен подходить под формат TotalWarehouse
+
+const totalData: TotalWarehouse = {
+	jackets: 5,
+	hats: "empty",
+	socks: "empty",
+	pants: 'empty',
+	scissors: 15,
+	paper: true,
+	dishwashers: 3,
+	cookers: "empty",
+	mixers: 14,
+  deficit: true,
+  date: new Date()
+};
+
+// Реализуйте функцию, которая принимает в себя главный объект totalData нужного формата
+// и возвращает всегда строку
+// Функция должна отфильтровать данные из объекта и оставить только те названия товаров, у которых значение "empty"
+// и поместить их в эту строку. Если таких товаров нет - возвращается другая строка (см ниже)
+
+// С данным объектом totalData строка будет выглядеть:
+// "We need this items: hats, socks, cookers"
+// Товары через запятую, в конце её не должно быть. Пробел после двоеточия, в конце строки его нет.
+
+function printReport(data: TotalWarehouse): string {
+/*   let arr = [];
+ for ( let key in data) {
+    if (data[key] === 'empty') {
+    arr.push(key ) 
+   } 
+ }
+ if (arr.toString().trim().length) {
+  return `We need this items:${arr.map(item => ` ${item}`)}`;
+ }else {
+  return "Everything fine";
+ } */
+ const result: string = Object.entries(data)
+ .filter((item) => item[1] === "empty")
+ .reduce((res, item) => `${res} ${item[0]},`, "");
+
+if (result.trim().length) {
+ return `We need this items:${result.slice(0, -1)}`;
+} else {
+ return "Everything fine";
+}
+}
+console.log(printReport(totalData));
