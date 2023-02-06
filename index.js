@@ -115,3 +115,4 @@ function printReport(data) {
        return "Everything fine"; */
 }
 console.log(printReport(totalData));
+
