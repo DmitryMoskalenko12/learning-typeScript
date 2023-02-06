@@ -298,3 +298,25 @@ function playMedia(
 }
 
 playMedia(obj);
+
+interface One {
+  name: string;
+  age: number
+}
+interface Two {
+  name: string;
+  birthday: number
+}
+function isOne(arg: One | Two): arg is One{
+  return 'age' in arg
+}
+function isTwo(arg: One | Two): arg is Two{
+  return 'birthday' in arg
+}
+function some(param: One | Two ) {
+  if (isOne(param)) {
+    param.name
+  } else if (isTwo(param)) {
+    param.birthday
+  }
+}
