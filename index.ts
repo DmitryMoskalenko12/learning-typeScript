@@ -377,3 +377,33 @@ function checkAnimalData(animal: Res): AnimalAvailableData | string {
 		return `${animal.data.message}, you can try in ${animal.data.nextUpdateIn}`;
 	}
 }
+
+interface Square {
+  side: number;
+  area: number;
+}
+
+interface Rect {
+  a: number;
+  b: number;
+  area: number;
+}
+function calculateArea(a: number): Rect; 
+function calculateArea(a: number, b: number, c: number): Rect; 
+function calculateArea(a: number, b?: number, c?: number, d?: number): Square | Rect {
+if (b) {
+  const rect: Rect = {
+    a, b,
+    area: a * b
+  }
+  return rect
+}else {
+  const square: Square = {
+    side: a,
+    area: a * a
+  }
+  return square
+}
+}
+calculateArea(2)
+calculateArea(2, 4, 5)
