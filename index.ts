@@ -425,10 +425,10 @@ interface FormDataExample {
 forms.forEach(form => {
   form.addEventListener('submit', (e) => {
     e.preventDefault()
-    formData.email = email.value
-    formData.title = title.value
-    formData.text = text.value
-    formData.checkbox = checkbox.checked
+    formData.email = email?.value ?? ''
+    formData.title = title?.value ?? ''
+    formData.text = text?.value ?? ''
+    formData.checkbox = checkbox?.checked ?? ''
     if (validateFormData(formData)) {
 			checkFormData(formData);
 		}
@@ -469,3 +469,34 @@ function checkFormData(data: FormDataExample) {
 		console.log("Posting data...");
 	}
 } 
+
+
+/* Дженереки */
+
+function processingData <T>(data: T): T {
+
+
+  return data
+}
+const res1 = processingData(1)
+const res2 = processingData('1')
+
+interface printES {
+  design: string;
+}
+
+interface PrintUK {
+  design: number
+}
+
+interface Print<T> {
+  design: T
+}
+
+const somePrint: Print<string> =  {
+  design: 'er'
+}
+
+const someOtherPrint: Print<number> = {
+  design:  4
+}
