@@ -116,3 +116,97 @@ const data = [
 ];
 
 console.log(calculateAmountOfFigures(data));
+
+
+
+const roArr: ReadonlyArray<string> = ['fff']
+
+interface ICompany {
+  name: string;
+  debts: number;
+}
+
+type CompanyKeys = keyof ICompany;
+const keys: CompanyKeys = 'debts';
+
+function printDebts<T, K extends keyof T, S extends keyof T>(company: T, name: K, debts: S) {
+  console.log(`Company ${company[name]}, debts: ${company[debts]}`)
+}
+
+const hh: ICompany = {
+  name: 'HH',
+  debts: 500000
+}
+
+printDebts(hh, 'name', 'debts')
+
+
+/* Home Work 7 */
+
+interface IPhone {
+	company: string;
+	number: number;
+}
+type Company = IPhone['company'];
+// IMobilePhone должен наследоваться от IPhone,
+// тип свойства companyPartner зависит от свойства company
+
+interface IMobilePhone extends IPhone {
+	size: string;
+	companyPartner: Company;
+	manufactured: Date;
+}
+
+// Типизировать объект phones
+
+const phones: IMobilePhone[] = [
+	{
+		company: "Nokia",
+		number: 1285637,
+		size: "5.5",
+		companyPartner: "MobileNokia",
+		manufactured: new Date("2022-09-01"),
+	},
+	{
+		company: "Samsung",
+		number: 4356637,
+		size: "5.0",
+		companyPartner: "SamMobile",
+		manufactured: new Date("2021-11-05"),
+	},
+	{
+		company: "Apple",
+		number: 4552833,
+		size: "5.7",
+		companyPartner: "no data",
+		manufactured: new Date("2022-05-24T12:00:00"),
+	},
+];
+
+interface IPhonesManufacturedAfterDate extends IMobilePhone {
+	initialDate: string;
+}
+
+// Функция должна отфильтровать массив данных и вернуть новый массив
+// с телефонами, выпущенными после даты в третьем аргументе
+
+function filterPhonesByDate(phones: IMobilePhone[], key: keyof IMobilePhone, initial: string): IPhonesManufacturedAfterDate[] {
+ return phones.filter((phone) => {
+  const manufactured = phone[key];
+  if (manufactured instanceof Date && Date.parse(manufactured.toString()) > Date.parse(initial)) {
+    return phone
+  }
+ })
+ .map(phone => {
+  const newObj = {...phone, initialDate: initial}
+  return newObj
+ })
+     
+  
+ 
+}
+
+// Второй аргумент при вызове функции должен быть связан с первым,
+// а значит мы получим подсказки - свойства этого объекта
+
+console.log(filterPhonesByDate(phones, 'manufactured', "2022-01-01"));
