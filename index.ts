@@ -201,12 +201,82 @@ function filterPhonesByDate(phones: IMobilePhone[], key: keyof IMobilePhone, ini
   const newObj = {...phone, initialDate: initial}
   return newObj
  })
-     
-  
- 
 }
 
 // Второй аргумент при вызове функции должен быть связан с первым,
 // а значит мы получим подсказки - свойства этого объекта
 
 console.log(filterPhonesByDate(phones, 'manufactured', "2022-01-01"));
+
+
+interface Obj {
+  name: string;
+  age: number;
+} 
+const objTest: Readonly<Obj> = {
+  name: 'fgggg',
+  age: 5
+} 
+
+const obj = {
+  name: 'ggg',
+  age: 6
+}
+
+type Res = keyof typeof obj
+const res: Res = 'name'
+
+
+interface Example {
+  name: string;
+  age: number;
+  an: {
+    bu: number
+  }
+}
+
+type Result = Example['an']['bu']
+
+
+interface IDataFromBase {
+  calories: number
+}
+interface IDataFomUser {
+  weight: string
+}
+
+function calculateDailyCalories<T extends string | number>(numOrString: T): T extends string ? IDataFomUser : IDataFromBase {
+   if(typeof numOrString === 'string') {
+    const obj: IDataFomUser = {
+      weight: numOrString
+    }
+    return obj as T extends string ? IDataFomUser : IDataFromBase 
+   } else {
+    const obj: IDataFromBase = {
+      calories: numOrString
+    }
+    return obj as T extends string ? IDataFomUser : IDataFromBase 
+   }
+}
+
+type toArray<T> = T extends any ? T[] : never
+
+type Currencies = {
+  usa: 'usd';
+  china: 'cny';
+  ukraine: 'uah';
+  kz: 'tenge';
+}
+
+type CreateCustomCurr<T> = {
+  [P in keyof T]: string
+}
+type CustomCurrencies = CreateCustomCurr<Currencies>
+
+const nObject : CustomCurrencies= {
+  usa: 'usd',
+  china: 'cny',
+  ukraine: 'uah',
+  kz: 'tenge'
+}
+
