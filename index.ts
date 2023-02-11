@@ -391,3 +391,15 @@ const fitnessClubCenter: FitnesClub = {
 		},
 	],
 };
+
+interface Examp<T> {
+  design: T
+}
+
+const exampObj: Examp<number> = {
+ design: 5
+}
+
+const ExampObj2: Examp<string> = {
+  design: ''
+}
