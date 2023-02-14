@@ -210,3 +210,54 @@ playMedia({
 	subtitles: "hmhmhm hmhmhm doh",
 	marks: ["4:30", "5:40"],
 });
+
+/* Home work 5 */
+type Animal = 'cat' | 'dog' | 'bird';
+
+enum AvailabaleOrNo {
+  AVAILABLE = 'available',
+  NOAVAILABLE = 'not available'
+}
+
+interface Requestt {
+    animal: Animal,
+    breed: string,
+    sterilized?: string
+}
+
+// Response #1
+
+interface Response1 extends Requestt {
+  location: string,
+  age?: number
+}
+
+// Response #2
+
+interface Response2 {
+  message: string,
+  nextUpdateIn: Date
+}
+
+interface AnimalAvailable {
+  status: AvailabaleOrNo.AVAILABLE
+  data: Response1;
+}
+
+interface AnimalNotAvailable {
+  status: AvailabaleOrNo.NOAVAILABLE,
+  data: Response2
+}
+
+function isAvailable(guard: AnimalAvailable | AnimalNotAvailable): guard is AnimalAvailable {
+ return guard.status === AvailabaleOrNo.AVAILABLE ? true : false
+}
+
+function checkAnimalData(animal: AnimalAvailable | AnimalNotAvailable): Response1 | string {
+	if (isAvailable(animal)) {
+		// Заменить условие!
+		return animal.data;
+	} else {
+		return `${animal.data.message}, you can try in ${animal.data.nextUpdateIn}`;
+	}
+}
