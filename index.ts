@@ -261,3 +261,130 @@ function checkAnimalData(animal: AnimalAvailable | AnimalNotAvailable): Response
 		return `${animal.data.message}, you can try in ${animal.data.nextUpdateIn}`;
 	}
 }
+
+/* Home work 6 */
+
+// Создать Generic-интерфейс PlayerData, который подходил бы для создания таких объектов:
+
+interface PlayerData<T, S> {
+  game: T,
+	hours: S,
+	server: string,
+}
+
+const player1: PlayerData<string, number> = {
+	game: "CS:GO",
+	hours: 300,
+	server: "basic",
+};
+
+const player2: PlayerData<number, string> = {
+	game: 2048,
+	hours: "300 h.",
+	server: "arcade",
+};
+
+const player3: PlayerData<string, object> = {
+	game: "Chess",
+	hours: {
+		total: 500,
+		inMenu: 50,
+	},
+	server: "chess",
+};
+
+// Массив данных с фигурами содержит объекты, у каждого из которых обязательно есть свойство name
+// Каждый объект может еще содержать дополнительные свойства в случайном виде
+// Свойство name может иметь только 4 варианта
+// Функция calculateAmountOfFigures должна принимать массив с объектами, у которых обязательно должно быть свойство name
+// Возвращает она объект-экземпляр AmountOfFigures
+// Внутри себя подсчитывает сколько каких фигур было в массиве и записывает результаты в AmountOfFigures
+// С текущими данными в консоль должно попадать:
+// { squares: 3, circles: 2, triangles: 2, others: 1 }
+
+interface AmountOfFigures {
+	squares: number;
+	circles: number;
+	triangles: number;
+	others: number;
+}
+
+enum Name {
+  RECT = 'rect',
+  TRIANGLE = 'triangle',
+  CIRCLE = 'circle',
+  LINE = 'line'
+}
+
+function calculateAmountOfFigures<T extends Data>(figure: T[]): AmountOfFigures {
+  const result: AmountOfFigures = {
+    squares: 0,
+    circles: 0,
+    triangles: 0,
+    others: 0
+  }
+if(Array.isArray(figure)) {
+  figure.forEach(item => {
+    switch (item.name) {
+      case Name.RECT:
+        result.squares++
+        break;
+
+      case Name.TRIANGLE:
+        result.triangles++
+      break;
+
+      case Name.CIRCLE:
+        result.circles++
+        break;
+
+      default:
+        result.others++
+        break;
+    }
+  })
+}
+ return result
+}
+
+interface Data {
+  name: Name;
+}
+interface WithData extends Data {
+  data?: object
+}
+const data: WithData[] = [
+	{
+		name: Name.RECT,
+		data: { a: 5, b: 10 },
+	},
+	{
+		name: Name.RECT,
+		data: { a: 6, b: 11 },
+	},
+	{
+		name: Name.TRIANGLE,
+		data: { a: 5, b: 10, c: 14 },
+	},
+	{
+		name: Name.LINE,
+		data: { l: 15 },
+	},
+	{
+		name: Name.CIRCLE,
+		data: { r: 10 },
+	},
+	{
+		name: Name.CIRCLE,
+		data: { r: 5 },
+	},
+	{
+		name: Name.RECT,
+		data: { a: 15, b: 7 },
+	},
+	{
+		name: Name.TRIANGLE,
+	},
+];
+
+console.log(calculateAmountOfFigures<Data>(data));
