@@ -704,6 +704,69 @@ class ArrayQueue<T> implements Queue<T> {
 	// isEmpty может использоваться в других методах
 }
 
+
+
+
+
+
+
+class Stack<T> {
+  private stack: T[] = [];
+  private limit: number;
+	// Создать приватное свойство stack, которое по умолчанию массив и содержит массив любого типа
+	// Создать приватное свойство limit, которое будет типом number
+
+	// Здесь мы установим лимит на стопку листов.
+	// При переполнении стэка программа зависает, а очень высокая стопка листов падает
+	// Так что лимит всегда должен быть
+	constructor(limit: number = Number.MAX_VALUE) {
+		this.limit = limit;
+	}
+
+	push(value: T): void {
+
+    if(this.length() + 1 > this.limit){
+      throw new Error('Opppss')
+      
+    } 
+    this.stack.push(value)
+		// Добавляет элемент в стэк
+		// Если стэк переполнен - выбрасывает ошибку (throw new Error)
+	}
+
+	pop(): T {
+    if (this.length() !== 0) {
+      return this.stack.pop() as T
+    } 
+      throw new Error('Stack is empty')
+    
+		// Удаляет последний элемент массива
+		// Если в стеке пусто - выбрасывает ошибку (throw new Error)
+		// При удалении элемента возвращает его
+		// Простыми словами: вы берете верхний лист в стопке и используете его
+		// Если на столе нет листов - получается ошибка, брать нечего
+	}
+
+	length(): number {
+    return this.stack.length
+		// Возвращает кол-во элементов в стэке
+	}
+
+	isEmpty(): boolean {
+    return this.length() === 0
+		// Проверяет стэк на "пустоту"
+	}
+
+	top(): T | null {
+    if (this.length() !== 0) {
+      return this.stack[this.length() - 1]
+    }
+    return null
+		// Возвращает последний (верхний) элемент стэка, но не удаляет его
+		// Вы просто читаете, что написано на верхнем листе
+		// Если стэк пуст - вернется null
+	}
+}
 // Стэк - это еще одна структура данных. Проще всего её представить как стопку листов на столе
 // Последний, который вы положите сверху, вы и первым потом возьмете.
 // Чуть подробнее можно найти в википедии или на других сайтах по поиску "Стэк структура данных"
@@ -727,7 +790,7 @@ console.log(arrTest2.peek());
 console.log(arrTest2.dequeue());
 console.log(arrTest2.length());
 
-/* const stackTest1 = new Stack<number>(10);
+const stackTest1 = new Stack<number>(10);
 stackTest1.push(20);
 stackTest1.push(50);
 console.log(stackTest1.top());
@@ -739,4 +802,4 @@ stackTest2.push("20");
 stackTest2.push("50");
 console.log(stackTest2.top());
 console.log(stackTest2.pop());
-console.log(stackTest2.length()); */
+console.log(stackTest2.length());
