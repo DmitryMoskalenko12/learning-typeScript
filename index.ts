@@ -803,3 +803,17 @@ stackTest2.push("50");
 console.log(stackTest2.top());
 console.log(stackTest2.pop());
 console.log(stackTest2.length());
+const obj = {
+  name: 'gop',
+  age: 23
+}
+function exp({name, age}: {name: string, age: number}): string {
+  if (age < 18) {
+    return  `${name} you are very yang`
+  } else {
+     return 'ok'
+  }
+  
+}
+
+exp(obj)
