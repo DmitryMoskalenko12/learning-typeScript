@@ -817,3 +817,34 @@ function exp({name, age}: {name: string, age: number}): string {
 }
 
 exp(obj)
+
+const arr: (string | number)[] = [2, 'kk', 'jjj', 5555]
+
+function test(testing: {name: string} | {age: number}): void {
+  if ('name' in testing) {
+    console.log(testing.name)
+  } else {
+    console.log(testing.age)
+  }
+}
+test({name: 'hhgh'})
+
+function nam(params:string) {
+  interface Ob {
+    name: string
+  }
+}
+
+enum Test {
+  RIGHT = 'right',
+  LEFT = 'left'
+}
+
+function direct(dir: Test): void {
+  if (dir === Test.LEFT) {
+    console.log(Test.LEFT)
+  } else  {
+    console.log(Test.RIGHT)
+  }
+}
+direct(Test.LEFT)
