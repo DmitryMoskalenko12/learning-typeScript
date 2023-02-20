@@ -848,3 +848,61 @@ function direct(dir: Test): void {
   }
 }
 direct(Test.LEFT)
+
+class Yut {
+  width: number
+  height: number
+  constructor(width: number, height: number){
+    this.width = width,
+    this.height = height
+  }
+
+}
+
+class Next extends Yut {
+  volume: number
+
+  constructor(volume: number, width: number, height: number) {
+    super(width, height);
+    this.volume = volume
+  }
+}
+
+const obg2 = new Next(7, 6, 6)
+
+class Exp {
+  one: number
+  constructor(one: number){
+    this.one = one
+  }
+}
+const one = new Exp(6)
+
+class Log {
+  log: number
+  constructor(log: number){
+    this.log = log
+  }
+  logIn = () =>  {
+    return this.log
+  }
+}
+const prim = new Log(6)
+const res = prim.logIn
+console.log(res())
+
+abstract class Abstr {
+  one: number
+  two: number
+  abstract num: (num: number) => number
+  exmp2 = (num: number): number => {
+    return num
+  }
+}
+
+
+class Abstr2 extends Abstr {
+  num = (num: number) => {
+   return num
+  }
+}

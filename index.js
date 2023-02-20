@@ -493,4 +493,21 @@ console.log(stackTest2.top());
 console.log(stackTest2.pop());
 console.log(stackTest2.length());
 
+function das (arr) {
+   const res = {};
+
+   for (let item of arr) {
+      res[item.name] = item.value
+   }
+ return res
+}
+
+const ar = [
+  {name: 'name', value: 'Anatoliy'},
+  {name: 'age', value: 40}
+]
+
+console.log(das(ar))
+
+
 
