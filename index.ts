@@ -906,3 +906,4 @@ class Abstr2 extends Abstr {
    return num
   }
 }
+console.log('hhh')
