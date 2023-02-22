@@ -908,5 +908,7 @@ class Abstr2 extends Abstr {
 }
 
 console.log('ooo')
-console.log('hhh')
+function n(params: number) {
+  console.log('test')
+}
 
