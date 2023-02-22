@@ -907,3 +907,6 @@ class Abstr2 extends Abstr {
   }
 }
 console.log('hhh')
+function v(params:string) {
+  console.log('create git conflict')
+}
