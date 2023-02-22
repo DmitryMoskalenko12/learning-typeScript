@@ -911,4 +911,8 @@ console.log('ooo')
 function n(params: number) {
   console.log('test')
 }
+console.log('hhh')
+function v(params:string) {
+  console.log('create git conflict')
+}
 
