@@ -803,117 +803,24 @@ stackTest2.push("50");
 console.log(stackTest2.top());
 console.log(stackTest2.pop());
 console.log(stackTest2.length());
-const obj = {
-  name: 'gop',
-  age: 23
-}
-function exp({name, age}: {name: string, age: number}): string {
-  if (age < 18) {
-    return  `${name} you are very yang`
-  } else {
-     return 'ok'
-  }
-  
-}
 
-exp(obj)
 
-const arr: (string | number)[] = [2, 'kk', 'jjj', 5555]
+/* ------------------------------------------------- */
+const currRate2: string = "1.05";
 
-function test(testing: {name: string} | {age: number}): void {
-  if ('name' in testing) {
-    console.log(testing.name)
-  } else {
-    console.log(testing.age)
-  }
-}
-test({name: 'hhgh'})
+const fetchCurr2 = (response: string): number => {
+	const data: number = JSON.parse(response);
+	return data;
+};
 
-function nam(params:string) {
-  interface Ob {
-    name: string
-  }
+function transferEurToUsd2(available: boolean, amount: number, commission: number): void {
+	if (available) {
+		let res: number = fetchCurr(currRate) * amount * commission;
+		console.log(res);
+		// Или запись в элемент на странице вместо консоли
+	} else {
+		console.log("Сейчас обмен недоступен");
+	}
 }
 
-enum Test {
-  RIGHT = 'right',
-  LEFT = 'left'
-}
-
-function direct(dir: Test): void {
-  if (dir === Test.LEFT) {
-    console.log(Test.LEFT)
-  } else  {
-    console.log(Test.RIGHT)
-  }
-}
-direct(Test.LEFT)
-
-class Yut {
-  width: number
-  height: number
-  constructor(width: number, height: number){
-    this.width = width,
-    this.height = height
-  }
-
-}
-
-class Next extends Yut {
-  volume: number
-
-  constructor(volume: number, width: number, height: number) {
-    super(width, height);
-    this.volume = volume
-  }
-}
-
-const obg2 = new Next(7, 6, 6)
-
-class Exp {
-  one: number
-  constructor(one: number){
-    this.one = one
-  }
-}
-const one = new Exp(6)
-
-class Log {
-  log: number
-  constructor(log: number){
-    this.log = log
-  }
-  logIn = () =>  {
-    return this.log
-  }
-}
-const prim = new Log(6)
-const res = prim.logIn
-console.log(res())
-
-abstract class Abstr {
-  one: number
-  two: number
-  abstract num: (num: number) => number
-  exmp2 = (num: number): number => {
-    return num
-  }
-}
-
-
-class Abstr2 extends Abstr {
-  num = (num: number) => {
-   return num
-  }
-}
-
-console.log('ooo')
-function n(params: number) {
-  console.log('test')
-}
-console.log('hhh')
-function v(params:string) {
-  console.log('create git conflict')
-}
-
-console.log('softrt')
+transferEurToUsd2(true, 500, 1.05);
