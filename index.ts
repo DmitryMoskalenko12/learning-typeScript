@@ -824,3 +824,59 @@ function transferEurToUsd2(available: boolean, amount: number, commission: numbe
 }
 
 transferEurToUsd2(true, 500, 1.05);
+/* -------------------------------------------- */
+const electricityUserData2: {
+  readings: number,
+  units: string,
+  mode: string
+} = {
+	readings: 95,
+	units: "kWt",
+	mode: "double",
+};
+
+const waterUserData2: {
+  readings2: number,
+  units2: string
+} = {
+	readings2: 3,
+	units2: "m3",
+};
+
+const elRate2: number = 0.45;
+const wRate2: number = 2;
+
+const monthPayments2: number[] = [0, 0]; // [electricity, water]
+
+const calculatePayments2 = ({readings, mode}: { 
+  readings: number,
+  units: string,
+  mode: string}, {readings2}: {
+    readings2: number,
+    units2: string}, elRate2: number, wRate2: number) => {
+	if (mode === "double" && readings < 50) {
+		monthPayments[0] = readings * elRate2 * 0.7;
+	} else {
+		monthPayments[0] = readings * elRate2;
+	}
+
+	monthPayments[1] = readings2 * wRate2;
+};
+
+calculatePayments2(electricityUserData2, waterUserData2, elRate2, wRate2);
+
+const sendInvoice2 = ([el, water]: number[], electricityUserData: { 
+  readings: number,
+  units: string,
+  mode: string}, waterUserData: {  
+    readings2: number,
+    units2: string}) => {
+	const text = `    Hello!
+    This month you used ${electricityUserData.readings} ${electricityUserData.units} of electricity
+    It will cost: ${el}€
+    
+    This month you used ${waterUserData.readings2} ${waterUserData.units2} of water
+    It will cost: ${water}€`;
+
+	return text;
+};
