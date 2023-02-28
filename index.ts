@@ -880,3 +880,71 @@ const sendInvoice2 = ([el, water]: number[], electricityUserData: {
 
 	return text;
 };
+/* ------------------------------------------------- */
+
+// Перечисление с названием TypesOfMedia, которое включает строчные типы video, audio
+enum TypesOfMedia2 {
+  VIDEO = 'video',
+  AUDIO = 'audio'
+}
+
+// Перечисление с названием FormatsOfMedia, которое включает строчные видео-форматы: .mp4, .mov, .mkv, .flv, .webM
+enum FormatsOfMedia2 {
+  MP42 = '.mp4',
+  MOV2 = '.mov',
+  MKV2 = '.mkv',
+  FLV2 = '.flv',
+  WEBM2 = '.webM'
+
+}
+
+// Описание интерфейса, в котором:
+// name - строка
+// type - один из перечисления выше
+// format = один из перечисления выше
+// subtitles - необязательное поле типа строка
+// marks - необязательное поле неизвестного типа
+interface PlayMedia2 {
+  name: string;
+  type: TypesOfMedia2;
+  format: FormatsOfMedia2; 
+  subtitles?: string ; 
+  marks?: unknown ;
+}
+
+function playMedia2(
+	{ name, type, format, subtitles, marks }: PlayMedia2 = {
+		name: "example",
+		type: TypesOfMedia2.AUDIO,
+		format: FormatsOfMedia2.MP42,
+	}
+): string {
+	let marksLog: string;
+  if (Array.isArray(marks)) {
+    marksLog = marks.join('')
+  } else if(typeof marks === 'string') {
+    marksLog = marks
+  } else {
+    marksLog = "Unsupported type of marks"
+  }
+
+    // Создать функционал, что если marks - это массив, то "сложить" все эелементы в одну строку и поместить в marksLog
+    // Если это строка, то просто поместить её в marksLog
+    // Если что-то другое - то marksLog = "Unsupported type of marks"
+    // Не допускайте any!
+
+	console.log(`Media ${name}${format} is ${type}
+    Marks: ${marksLog}
+    Subtitles: ${subtitles ?? "none"}`);
+    // помните что это за оператор ??
+
+	return "Media started";
+}
+
+playMedia2({
+	name: "WoW",
+	format: FormatsOfMedia2.MP42,
+	type: TypesOfMedia2.AUDIO,
+	subtitles: "hmhmhm hmhmhm doh",
+	marks: ["4:30", "5:40"],
+});
